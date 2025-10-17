@@ -13,7 +13,7 @@ export PUB_HOSTED_URL="https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
 之后
 
 ```sh
-git clone https://github.com/waifu-project/movie
+git clone https://github.com/hjdhnx/CatFun
 cd movie
 bash script/fetch_git_info.sh
 flutter pub get .

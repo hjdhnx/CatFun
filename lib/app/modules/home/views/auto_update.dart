@@ -122,7 +122,7 @@ class _AutoUpdateState extends State<AutoUpdate> with AfterLayoutMixin {
                 onPressed: () {
                   if (tag == null) return;
                   String url =
-                      "https://github.com/waifu-project/movie/releases/latest/download/";
+                      "https://github.com/hjdhnx/CatFun/releases/latest/download/";
                   if (GetPlatform.isAndroid) {
                     url += "catmovie.apk";
                   } else if (GetPlatform.isIOS) {
@@ -139,7 +139,7 @@ class _AutoUpdateState extends State<AutoUpdate> with AfterLayoutMixin {
                 onLongPress: () {
                   if (GetPlatform.isIOS) {
                     var url =
-                        "apple-magnifier://install?url=https://github.com/waifu-project/movie/releases/latest/download/catmovie.ipa";
+                        "apple-magnifier://install?url=https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie.ipa";
                     url.openURL();
                   }
                 },

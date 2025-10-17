@@ -640,7 +640,7 @@ class HomeController extends GetxController
       await windowManager.show();
       await windowManager.focus();
     }
-    // https://github.com/waifu-project/movie/pull/50
+    // https://github.com/hjdhnx/CatFun/pull/50
     if (_isProtocolUrlReceived) return;
     _isProtocolUrlReceived = true;
     var cx = Uri.tryParse(url);

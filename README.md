@@ -32,7 +32,7 @@
 
 `macOS` 可以使用 [homebrew](https://brew.sh) 快速安装, 也可自行下载安装
 
-[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/waifu-project/movie/releases/latest/download/catmovie-mac.zip
+[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie-mac.zip
 )
 
 > 更新的话可直接使用 `brew reinstall -f yoyo`
@@ -44,7 +44,7 @@ brew install yoyo
 
 #### **Linux 🐧**
 
-[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/waifu-project/movie/releases/latest/download/catmovie-linux-x86_64.tar.gz)
+[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie-linux-x86_64.tar.gz)
 
 在 `Archlinux` 需要安装两个包
 
@@ -59,15 +59,15 @@ yay -S xdg-user-dir xdg-utils
 
 > https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
 
-[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/waifu-project/movie/releases/latest/download/catmovie-windows.zip)
+[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie-windows.zip)
 
 #### **Android 🤖**
 
 大部分手机直接使用常用架构包就行了, 通用包兼容多种架构
 
-- [常用(arm64-v8a)](https://github.com/waifu-project/movie/releases/latest/download/catmovie.apk)
-- [旧手机(armeabi-v7a)](https://github.com/waifu-project/movie/releases/latest/download/catmovie-legacy.apk)
-- [通用(universal)](https://github.com/waifu-project/movie/releases/latest/download/catmovie-universal.apk)
+- [常用(arm64-v8a)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie.apk)
+- [旧手机(armeabi-v7a)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie-legacy.apk)
+- [通用(universal)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie-universal.apk)
 
 #### **iOS 📱**
 
@@ -78,9 +78,109 @@ yay -S xdg-user-dir xdg-utils
 - [NB助手](https://nbtool8.com)
 
 > [!NOTE]
-> apple-magnifier://install?url=https://github.com/waifu-project/movie/releases/latest/download/catmovie.ipa
+> apple-magnifier://install?url=https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie.ipa
 
-[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/waifu-project/movie/releases/latest/download/catmovie.ipa)
+[![](https://img.shields.io/badge/-点我下载-blue?logo=github)](https://github.com/hjdhnx/CatFun/releases/latest/download/catmovie.ipa)
+
+### 开发环境搭建 🛠️
+
+#### **Windows 开发环境搭建指南**
+
+如果你想在Windows上开发和运行这个项目，请按照以下步骤操作：
+
+##### 1. 安装必要软件
+
+**安装 Git**
+- 下载并安装 [Git for Windows](https://git-scm.com/download/win)
+- 安装时选择默认选项即可
+
+**安装 Flutter SDK**
+- 访问 [Flutter 中文网](https://flutter.cn/docs/get-started/install/windows)
+- 下载 Flutter SDK 3.35.1 版本（推荐版本）
+- 解压到 `C:\flutter` 目录
+- 将 `C:\flutter\bin` 添加到系统环境变量 PATH 中
+
+**安装 Visual Studio Code**
+- 下载并安装 [VS Code](https://code.visualstudio.com/)
+- 安装 Flutter 和 Dart 插件
+
+**安装 Android Studio（可选，用于Android开发）**
+- 下载并安装 [Android Studio](https://developer.android.com/studio)
+- 安装 Android SDK 和模拟器
+
+##### 2. 配置国内镜像（推荐）
+
+打开命令提示符（CMD）或PowerShell，设置环境变量：
+
+```cmd
+setx FLUTTER_STORAGE_BASE_URL "https://mirrors.tuna.tsinghua.edu.cn/flutter"
+setx PUB_HOSTED_URL "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
+```
+
+##### 3. 验证安装
+
+```cmd
+flutter doctor
+```
+
+确保所有检查项都通过（✓）。
+
+##### 4. 克隆并运行项目
+
+```cmd
+# 克隆项目
+git clone https://github.com/hjdhnx/CatFun.git
+cd movie
+
+# 获取依赖
+flutter pub get
+
+# 生成代码（如果需要）
+flutter pub run build_runner build
+
+# 运行项目（Windows桌面版）
+flutter run -d windows
+
+# 或者运行Web版本
+flutter run -d chrome
+```
+
+##### 5. 常见问题解决
+
+**问题1：flutter doctor 显示Android toolchain问题**
+- 打开Android Studio
+- 进入 SDK Manager 安装最新的 Android SDK
+- 接受所有许可协议
+
+**问题2：Windows桌面支持未启用**
+```cmd
+flutter config --enable-windows-desktop
+```
+
+**问题3：依赖安装失败**
+- 确保网络连接正常
+- 尝试使用VPN或更换网络
+- 清除缓存：`flutter clean && flutter pub get`
+
+##### 6. 开发工具推荐
+
+- **IDE**: Visual Studio Code 或 Android Studio
+- **调试**: Flutter Inspector（VS Code插件自带）
+- **性能分析**: Flutter DevTools
+
+##### 7. 项目结构说明
+
+```
+CatFun/
+├── lib/                 # 主要源代码
+│   ├── app/            # 应用程序模块
+│   ├── shared/         # 共享组件
+│   └── main.dart       # 应用入口
+├── android/            # Android平台代码
+├── windows/            # Windows平台代码
+├── assets/             # 资源文件
+└── pubspec.yaml        # 项目配置文件
+```
 
 ### 文档 📜
 

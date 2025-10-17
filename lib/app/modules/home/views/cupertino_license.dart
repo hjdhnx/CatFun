@@ -13,7 +13,7 @@ import 'package:catmovie/widget/flutter_custom_license_page.dart';
 import 'package:smooth_list_view/smooth_list_view.dart';
 import 'package:tuple/tuple.dart';
 
-const kGithubRepo = "https://github.com/waifu-project/movie";
+const kGithubRepo = "https://github.com/hjdhnx/CatFun";
 
 // 开发者们
 var kDevelopers = <Tuple2<String, String>>[
