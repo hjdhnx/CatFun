@@ -96,6 +96,7 @@ yay -S xdg-user-dir xdg-utils
 
 **安装 Flutter SDK**
 - 访问 [Flutter 中文网](https://flutter.cn/docs/get-started/install/windows)
+- [SDK列表](https://docs.flutter.cn/install/archive)
 - 下载 Flutter SDK 3.35.1 版本（推荐版本）
 - 解压到 `C:\flutter` 目录
 - 将 `C:\flutter\bin` 添加到系统环境变量 PATH 中

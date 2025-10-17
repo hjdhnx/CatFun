@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:catmovie/utils/screen_helper.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class WebviewView extends StatefulWidget {
   const WebviewView({super.key});
@@ -14,23 +14,15 @@ class WebviewView extends StatefulWidget {
 
 class _WebviewViewState extends State<WebviewView> {
   final url = Get.arguments;
-
-  late final WebViewController controller;
+  final GlobalKey webViewKey = GlobalKey();
+  
+  bool _isLoading = true;
 
   @override
   void initState() {
     WakelockPlus.enable();
     execScreenDirction(ScreenDirction.x);
-    init();
     super.initState();
-  }
-
-  void init() {
-    // https://github.com/flutter/packages/blob/853c6773177a32be019c55c2ff45c9908196dadd/packages/webview_flutter/webview_flutter/example/lib/simple_example.dart#L27C5-L48C40
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..loadRequest(Uri.parse(url));
   }
 
   @override
@@ -60,7 +52,44 @@ class _WebviewViewState extends State<WebviewView> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      body: WebViewWidget(controller: controller),
+      body: Stack(
+        children: [
+          InAppWebView(
+            key: webViewKey,
+            initialUrlRequest: URLRequest(
+              url: WebUri(url),
+            ),
+            initialSettings: InAppWebViewSettings(
+              javaScriptEnabled: true,
+              mediaPlaybackRequiresUserGesture: false,
+              allowsInlineMediaPlayback: true,
+              transparentBackground: true,
+            ),
+            onWebViewCreated: (controller) {
+              // WebView controller created
+            },
+            onLoadStart: (controller, url) {
+              setState(() => _isLoading = true);
+            },
+            onLoadStop: (controller, url) {
+              setState(() => _isLoading = false);
+            },
+            onReceivedError: (controller, request, error) {
+              setState(() => _isLoading = false);
+            },
+            onPermissionRequest: (controller, request) async {
+              return PermissionResponse(
+                resources: request.resources,
+                action: PermissionResponseAction.GRANT,
+              );
+            },
+          ),
+          if (_isLoading)
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
+      ),
     );
   }
 }

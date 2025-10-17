@@ -4,7 +4,7 @@ import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+// import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'path.dart';
@@ -39,16 +39,16 @@ extension AnyInjectHttpCacheOptions on Object {
   }
 }
 
-var kHttpCacheMiddlewareOptions = CacheOptions(
-  store: MemCacheStore(),
-  policy: CachePolicy.forceCache,
-  hitCacheOnErrorCodes: const [401, 403],
-  maxStale: kHttpCacheTime,
-  priority: CachePriority.normal,
-  cipher: null,
-  keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-  allowPostMethod: true,
-);
+// var kHttpCacheMiddlewareOptions = CacheOptions(
+//   store: MemCacheStore(),
+//   policy: CachePolicy.forceCache,
+//   hitCacheOnErrorCodes: const [401, 403],
+//   maxStale: kHttpCacheTime,
+//   priority: CachePriority.normal,
+//   cipher: null,
+//   keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+//   allowPostMethod: true,
+// );
 
 class XHttp {
   XHttp._internal();
@@ -84,8 +84,8 @@ class XHttp {
     );
     dio.interceptors.add(CookieManager(cookieJar));
 
-    dio.interceptors
-        .add(DioCacheInterceptor(options: kHttpCacheMiddlewareOptions));
+    // dio.interceptors
+    //     .add(DioCacheInterceptor(options: kHttpCacheMiddlewareOptions));
 
     if (enableLog) {
       dio.interceptors.add(

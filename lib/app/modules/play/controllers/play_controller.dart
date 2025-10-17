@@ -1,12 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:catmovie/app/modules/play/views/chewie_view.dart';
 import 'package:catmovie/app/modules/play/views/play_view.dart';
 import 'package:catmovie/isar/schema/video_history_schema.dart';
 import 'package:catmovie/utils/boop.dart';
-import 'package:desktop_webview_window/desktop_webview_window.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,18 +14,14 @@ import 'package:catmovie/app/extension.dart';
 import 'package:catmovie/app/modules/home/controllers/home_controller.dart';
 import 'package:catmovie/app/modules/home/views/source_help.dart';
 import 'package:catmovie/app/modules/play/views/webview_view.dart';
-import 'package:catmovie/shared/auto_injector.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:xi/xi.dart';
 import 'package:catmovie/isar/schema/parse_schema.dart';
 import 'package:catmovie/shared/enum.dart';
-import 'package:webplayer_embedded/webplayer_embedded.dart';
+// import 'package:webplayer_embedded/webplayer_embedded.dart';
 
 // 延迟注入播放列表的时间
 const kDelayExecInjectPlaylistJSCode = Duration(seconds: 1);
-
-const _kWindowsWebviewRuntimeLink =
-    "https://developer.microsoft.com/en-us/microsoft-edge/webview2";
 
 /// 需要解析的链接集合
 const _kNeedToParseDomains = [
@@ -112,7 +106,7 @@ String easyGenParseVipUrl(String raw, ParseIsarModel model) {
 class PlayController extends GetxController {
   VideoDetail movieItem = Get.arguments;
 
-  WebPlayerEmbedded webPlayerEmbedded = autoInjector.get<WebPlayerEmbedded>();
+  // WebPlayerEmbedded webPlayerEmbedded = autoInjector.get<WebPlayerEmbedded>();
 
   HomeController home = Get.find<HomeController>();
 
@@ -176,12 +170,12 @@ class PlayController extends GetxController {
   HttpServer? _httpServerContext;
 
   String url2Iframe(String realUrl, HttpServer server) {
-    var type = getSettingAsKeyIdent<IWebPlayerEmbeddedType>(
-      SettingsAllKey.webviewPlayType,
-    );
-    if (realUrl.endsWith(".m3u8")) {
-      return webPlayerEmbedded.generatePlayerUrl(type, realUrl);
-    }
+    // var type = getSettingAsKeyIdent<IWebPlayerEmbeddedType>(
+    //   SettingsAllKey.webviewPlayType,
+    // );
+    // if (realUrl.endsWith(".m3u8")) {
+    //   return webPlayerEmbedded.generatePlayerUrl(type, realUrl);
+    // }
     var port = server.port;
     return "http://localhost:$port/assets/iframe.html?url=$realUrl";
   }
@@ -262,136 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  Future<bool> playWithWebview(
-    List<VideoInfo> playList,
-    VideoInfo curr,
-    String url,
-    bool isUpSort,
-  ) async {
-    if (GetPlatform.isWindows) {
-      bool bWebviewWindow = await WebviewWindow.isWebviewAvailable();
-      if (!bWebviewWindow) {
-        await showCupertinoDialog(
-          builder: (BuildContext context) => CupertinoAlertDialog(
-            title: const Text('提示'),
-            content: const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 12.0,
-              ),
-              child: Text(
-                '未安装 edge webview runtime, 无法播放 :(',
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            actions: <CupertinoDialogAction>[
-              CupertinoDialogAction(
-                child: const Text(
-                  '我知道了',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 51, 22, 20),
-                  ),
-                ),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-              CupertinoDialogAction(
-                isDestructiveAction: true,
-                onPressed: () {
-                  _kWindowsWebviewRuntimeLink.openURL();
-                  Get.back();
-                },
-                child: const Text(
-                  '去下载',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
-                ),
-              )
-            ],
-          ),
-          context: Get.context as BuildContext,
-        );
-        return false;
-      }
-    }
 
-    Webview webview = await WebviewWindow.create(
-      configuration: CreateConfiguration(
-        titleBarHeight: GetPlatform.isMacOS ? 24 : 0,
-        title: "猫趣",
-      ),
-    );
-
-    void setWebviewActivePlay(VideoInfo curr) {
-      webview.evaluateJavaScript("setActionText(`${curr.name}`)");
-      webview.evaluateJavaScript("setActiveWithPlaylist(`${curr.url}`)");
-    }
-
-    bool updatePlayStateWithUrl(String url) {
-      var curr = playList.firstWhereOrNull((element) => element.url == url);
-      if (curr == null) return false;
-      var index = playList.indexOf(curr);
-      var realIndex = getReversalIndex(playList, index);
-      if (index >= 0) {
-        updatePlayState(tabIndex, index, realIndex, curr.name);
-        return true;
-      }
-      return false;
-    }
-
-    /// `MP4` 理论上来说不需要操作就可以直接喂给浏览器?
-    if (_httpServerContext == null ||
-        !(await webPlayerEmbedded.checkRunning())) {
-      _httpServerContext = await webPlayerEmbedded.createServer(
-        onMessage: (msg) {
-          String value = jsonDecode(msg.value);
-          switch (msg.type) {
-            case "switchVideo":
-              updatePlayStateWithUrl(getIframeRealUrl(value));
-          }
-        },
-      );
-    }
-
-    url = url2Iframe(url, _httpServerContext!);
-    debugPrint("webview url: $url");
-    // NOTE(d1y): linux 不支持?
-    webview.launch(url);
-
-    // (不需要解析)白嫖的第三方资源会自动跳转广告网站, 这个方法将延迟删除广告
-    // NOTE(d1y): 果真需要吗?
-    // if (!needParse) {
-    //   int beforeRemoveADTime = 1200;
-    //   String execCode =
-    //       "alert('$webviewShowMessage');setTimeout(function() {window.removeEventListener('click', _popwnd_open);}, $beforeRemoveADTime)";
-    //   webview.addScriptToExecuteOnDocumentCreated(execCode);
-    // }
-
-    webview.setOnUrlRequestCallback((newUrl) {
-      var realUrl = getIframeRealUrl(newUrl);
-      updatePlayStateWithUrl(realUrl);
-      Future.delayed(kDelayExecInjectPlaylistJSCode, () async {
-        var curr =
-            playList.firstWhereOrNull((element) => element.url == realUrl);
-        if (curr == null) return;
-        setWebviewActivePlay(curr);
-      });
-      return true;
-    });
-
-    if (playList.length >= 2) {
-      webview.addScriptToExecuteOnDocumentCreated(
-        await injectPlaylistJSCode(playList, GetPlatform.isMacOS ? 0 : 12),
-      );
-      Future.delayed(kDelayExecInjectPlaylistJSCode, () async {
-        setWebviewActivePlay(curr);
-      });
-    }
-    return true;
-  }
 
   Future<String> parseIframe(String iframe) async {
     var closed = showLoading("正在解析iframe");
@@ -473,30 +338,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
     switch (videoKernel) {
       case VideoKernel.webview:
-        if (GetPlatform.isDesktop) {
-          return await playWithWebview(playList, curr, url, isUpSort);
+        // 统一使用 flutter_inappwebview 的 WebviewView
+        if (curr.type == VideoType.iframe) {
+          Get.to(
+            () => const WebviewView(),
+            arguments: url,
+          );
         } else {
+          // 对于非iframe类型，在移动端使用ChewieView，桌面端使用WebviewView
           if (GetPlatform.isAndroid) {
-            if (curr.type == VideoType.iframe) {
-              Get.to(
-                () => const WebviewView(),
-                arguments: url,
-              );
-            } else {
-              Get.to(
-                () => const ChewieView(),
-                arguments: {
-                  'url': url,
-                  'cover': movieItem.smallCoverImage,
-                },
-              );
-            }
+            Get.to(
+              () => const ChewieView(),
+              arguments: {
+                'url': url,
+                'cover': movieItem.smallCoverImage,
+              },
+            );
           } else {
-            if (curr.type == VideoType.iframe) {
-              url = await parseIframe(url);
-              if (url.isEmpty) return false;
-            }
-            url.openURL();
+            Get.to(
+              () => const WebviewView(),
+              arguments: url,
+            );
           }
         }
         break;
@@ -604,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (_httpServerContext != null) {
       try {
         _httpServerContext!.close();
-        webPlayerEmbedded.dispose();
+        // webPlayerEmbedded.dispose();
       } catch (e) {
         // I don't care
         debugPrint("close server error: $e");

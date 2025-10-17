@@ -1,6 +1,6 @@
 import 'package:isar_community/isar.dart';
 import 'package:catmovie/shared/enum.dart';
-import 'package:webplayer_embedded/webplayer_embedded.dart';
+// import 'package:webplayer_embedded/webplayer_embedded.dart';
 
 part 'settings_schema.g.dart';
 

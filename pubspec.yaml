@@ -14,7 +14,7 @@ dependencies:
 
   salomon_bottom_bar: ^3.3.2
   html: ^0.15.6
-  webview_flutter: ^4.13.0
+  flutter_inappwebview: ^6.0.0
   modal_bottom_sheet: ^3.0.0
 
   # https://github.com/peng8350/flutter_pulltorefresh/issues/588
@@ -50,30 +50,27 @@ dependencies:
   xi:
     path: packages/xi
 
-  hide_cursor:
-    git:
-      url: https://github.com/waifu-project/hide_cursor
-      branch: main
-      ref: 33643d93803c09455445389ad57b1da880cd04aa
-  desktop_webview_window:
-    git:
-      url: https://github.com/waifu-project/flutter-plugins
-      branch: webview_window_icon
-      ref: b8b90776e769e23e27198c297d88246a13b4e75a
-      path: packages/desktop_webview_window
-  command_palette:
-    git:
-      url: https://github.com/d1y/command_palette
-      branch: d1y
-      ref: c9cf207fccd07ecaa6de0f7ea898046ffa26ff3a
-  webplayer_embedded:
-    git:
-      url: https://github.com/d1y/webplayer_embedded
-      ref: 1d78923edd091b90d362ce9587aacf8ce83a93fa
-  bitsdojo_window:
-    git:
-      url: https://github.com/bitsdojo/bitsdojo_window
-      path: bitsdojo_window
+  # hide_cursor:
+  #   git:
+  #     url: https://github.com/waifu-project/hide_cursor
+  #     branch: main
+  #     ref: 33643d93803c09455445389ad57b1da880cd04aa
+  # desktop_webview_window:
+  #   git:
+  #     url: https://github.com/waifu-project/flutter-plugins
+  #     branch: webview_window_icon
+  #     ref: b8b90776e769e23e27198c297d88246a13b4e75a
+  #     path: packages/desktop_webview_window
+  # command_palette:
+  #   git:
+  #     url: https://github.com/d1y/command_palette
+  #     branch: d1y
+  #     ref: c9cf207fccd07ecaa6de0f7ea898046ffa26ff3a
+  # webplayer_embedded:
+  #   git:
+  #     url: https://github.com/d1y/webplayer_embedded
+  #     ref: 1d78923edd091b90d362ce9587aacf8ce83a93fa
+  bitsdojo_window: ^0.1.6
   smooth_list_view:
     git:
       url: https://github.com/dridino/smooth_list_view
@@ -110,12 +107,8 @@ dependencies:
       ref: main
       path: ./media_kit
   media_kit_video:
-    # git:
-    #   url: https://github.com/Predidit/media-kit.git
-    #   ref: main
-    #   path: ./media_kit_video
     git:
-      url: https://github.com/waifu-project/media-kit.git
+      url: https://github.com/Predidit/media-kit.git
       ref: main
       path: ./media_kit_video
     # path: /Users/d1y/code/github/media-kit/media_kit_video

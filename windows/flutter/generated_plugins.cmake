@@ -4,9 +4,8 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   bitsdojo_window_windows
-  desktop_webview_window
+  flutter_inappwebview_windows
   flutter_js
-  hide_cursor
   isar_community_flutter_libs
   media_kit_libs_windows_video
   media_kit_video
@@ -15,6 +14,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   share_plus
   url_launcher_windows
   vclibs
+  volume_controller
   window_manager
 )
 
