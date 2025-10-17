@@ -1,0 +1,35 @@
+// https://zed.dev/docs/tasks
+[
+  {
+    "label": "flutter debug macos",
+    "command": "flutter",
+    "args": [ "run", "-d", "macos" ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "dart format code",
+    "command": "dart",
+    "args": [ "format", "." ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "build to macOS and install",
+    "command": "bash",
+    "args": [ "script/bundle-mac" ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "build to iOS",
+    "command": "bash",
+    "args": [ "script/bundle-ios" ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  }
+]

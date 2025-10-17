@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/v1"
+      }
+    }
+  },
+  "definitions": {
+    "v1": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "源名称"
+        },
+        "url": {
+          "type": "string",
+          "description": "采集地址, 一般是地址合集"
+        },
+        "msg": {
+          "type": "string",
+          "description": "源的说明, 一般是导入的时候用来提示的"
+        },
+        "nsfw": {
+          "type": "boolean",
+          "description": "是否是 18+ 的源"
+        }
+      }
+    }
+  }
+}

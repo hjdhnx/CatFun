@@ -1,0 +1,247 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pubspec.json
+name: catmovie
+version: 2.5.0
+publish_to: none
+description: 支持扩展播放源的播放器
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  get: ^4.7.2
+
+  salomon_bottom_bar: ^3.3.2
+  html: ^0.15.6
+  webview_flutter: ^4.13.0
+  modal_bottom_sheet: ^3.0.0
+
+  # https://github.com/peng8350/flutter_pulltorefresh/issues/588
+  pull_to_refresh_flutter3: ^2.0.2
+
+  # cupertino_list_tile: ^0.2.0
+  # flutter_html: ^2.1.5
+  cached_network_image: ^3.4.1
+  chewie: ^1.11.3
+  video_player: ^2.10.0
+  path_provider: ^2.1.5
+  clipboard: ^2.0.2
+  wakelock_plus: ^1.3.2
+  url_launcher: ^6.3.1
+  flutter_slidable: ^4.0.0
+  auto_injector: ^2.1.1
+  settings_ui: ^2.0.2
+
+  file_picker: ^10.2.0
+  share_plus: ^12.0.0
+
+  equatable: ^2.0.7
+
+  isar_community: ^3.3.0-dev.2
+  isar_community_flutter_libs: ^3.3.0-dev.2
+
+  tuple: ^2.0.2
+  flutter_easyloading: ^3.0.5
+  executor: ^2.2.5
+
+  simple:
+    path: packages/simple
+  xi:
+    path: packages/xi
+
+  hide_cursor:
+    git:
+      url: https://github.com/waifu-project/hide_cursor
+      branch: main
+      ref: 33643d93803c09455445389ad57b1da880cd04aa
+  desktop_webview_window:
+    git:
+      url: https://github.com/waifu-project/flutter-plugins
+      branch: webview_window_icon
+      ref: b8b90776e769e23e27198c297d88246a13b4e75a
+      path: packages/desktop_webview_window
+  command_palette:
+    git:
+      url: https://github.com/d1y/command_palette
+      branch: d1y
+      ref: c9cf207fccd07ecaa6de0f7ea898046ffa26ff3a
+  webplayer_embedded:
+    git:
+      url: https://github.com/d1y/webplayer_embedded
+      ref: 1d78923edd091b90d362ce9587aacf8ce83a93fa
+  bitsdojo_window:
+    git:
+      url: https://github.com/bitsdojo/bitsdojo_window
+      path: bitsdojo_window
+  smooth_list_view:
+    git:
+      url: https://github.com/dridino/smooth_list_view
+      ref: main
+
+  provider: ^6.1.5
+  dio: ^5.8.0+1
+  collection: ^1.19.1
+  csslib: ^1.0.2
+
+  # TODO: https://pub.dev/packages/protocol_handler
+  protocol_handler: ^0.2.0
+
+  event_bus: ^2.0.1
+  window_manager: ^0.5.0
+  vclibs: ^0.1.3
+  
+  # 这个插件其实很好, 只不过我在用的发现它的位置算不太准
+  # smart_overlay_menu: ^1.0.0
+  pull_down_button: ^0.10.2
+
+  dlna_dart: ^0.1.0
+
+  concurrent_queue: ^1.5.0
+
+  after_layout: ^1.2.0
+
+  # media_kit: ^1.2.0
+  # media_kit_video: ^1.3.0
+  # media_kit_libs_video: ^1.0.6
+  media_kit:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./media_kit
+  media_kit_video:
+    # git:
+    #   url: https://github.com/Predidit/media-kit.git
+    #   ref: main
+    #   path: ./media_kit_video
+    git:
+      url: https://github.com/waifu-project/media-kit.git
+      ref: main
+      path: ./media_kit_video
+    # path: /Users/d1y/code/github/media-kit/media_kit_video
+  media_kit_libs_video:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/universal/media_kit_libs_video
+
+  bounce_tapper: ^1.1.4
+
+  cupertino_onboarding: ^1.3.0
+
+  markdown_widget: ^2.3.2+8
+
+  path: ^1.9.1
+
+  chinese_font_library: ^1.2.0
+
+  haptic_feedback: ^0.5.1+1
+
+  aurora: ^1.0.0
+
+  flutter_keyboard_visibility: ^6.0.0
+
+  flutter_svg: ^2.2.1
+
+  nuts_activity_indicator: ^1.0.0
+
+  scrolls_to_top: ^2.1.1
+
+dependency_overrides:
+  media_kit:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./media_kit
+  # media_kit_video:
+  #   git:
+  #     url: https://github.com/Predidit/media-kit.git
+  #     ref: main
+  #     path: ./media_kit_video
+  media_kit_libs_video:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/universal/media_kit_libs_video
+  media_kit_libs_linux:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/linux/media_kit_libs_linux
+  media_kit_libs_ios_video:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/ios/media_kit_libs_ios_video
+  media_kit_libs_android_video:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/android/media_kit_libs_android_video
+  media_kit_libs_windows_video:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/windows/media_kit_libs_windows_video
+  media_kit_libs_macos_video:
+    git:
+      url: https://github.com/Predidit/media-kit.git
+      ref: main
+      path: ./libs/macos/media_kit_libs_macos_video
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+
+  flutter_launcher_name:
+    git:
+      url: https://github.com/Dhanabhon/flutter_launcher_name
+
+  # flutter_launcher_icons: ^0.14.4
+  icons_launcher: ^3.0.1
+
+  # flutter_native_splash: ^2.4.6
+
+  isar_community_generator: ^3.3.0-dev.2
+
+  build_runner: ^2.4.4
+
+  # flutter pub run change_app_package_name:main io.github.d1y.catmovie
+  change_app_package_name: ^1.5.0
+
+# flutter pub run flutter_launcher_name:main
+flutter_launcher_name:
+  name: "猫趣"
+
+# flutter pub run flutter_native_splash:create
+# flutter_native_splash:
+#   image: 'design/logo_trans.png'
+#   color: "#FF5733"
+#   ios: true
+#   android: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/data/source_help.txt
+    - assets/data/play_tips.txt
+    - assets/images/error.png
+    - assets/data/playlist.js
+
+# flutter pub run icons_launcher:create
+icons_launcher:
+  image_path: 'design/logo_round.png'
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+      # iOS不支持透明
+      image_path: 'design/logo_full.png'
+    macos:
+      enable: true
+    windows:
+      enable: true
+    linux:
+      enable: false

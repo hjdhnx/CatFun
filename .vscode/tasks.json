@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "fetch git info",
+      "command": "bash",
+      "args": [
+        "script/fetch_git_info.sh"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "type": "shell",
+      "label": "build to macOS and install",
+      "command": "bash",
+      "args": [
+        "script/bundle-mac"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "shell",
+      "label": "build to iOS",
+      "command": "bash",
+      "args": [
+        "script/bundle-ios"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "shell",
+      // flutter_launcher_name 与 flutter_launcher_icons 冲突(需要手动取消注释)
+      "label": "re-generate flutter app name",
+      "command": "flutter",
+      "args": [
+        "pub",
+        "run",
+        "flutter_launcher_name:main"
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "re-generate flutter app icons",
+      "command": "flutter",
+      "args": [
+        "pub",
+        "run",
+        "flutter_launcher_icons:main"
+      ]
+    },
+    {
+      "type": "shell",
+      "label": "dart format",
+      "command": "dart",
+      "args": [
+        "format",
+        "."
+      ]
+    }
+  ]
+}

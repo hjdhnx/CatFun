@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+# ./JS/sync --gist
+
+# Parse command line arguments
+UPLOAD_TO_GIST=false
+GIST_ID="3fc0adf7ac60b351a9432e9f8ed4e9d3"  # Fixed gist ID
+
+for arg in "$@"; do
+  case $arg in
+    --gist)
+      UPLOAD_TO_GIST=true
+      shift
+      ;;
+    *)
+      # Unknown option
+      ;;
+  esac
+done
+
+echo "🔨 Building kitty bundle..."
+pushd JS/bundle
+pwd
+bun install
+bun run build
+popd
+
+echo "📁 Copying to packages..."
+cp JS/bundle/dist/kitty.umd.js packages/xi/assets/js
+
+if [ "$UPLOAD_TO_GIST" = true ]; then
+  echo "📤 Uploading to gist..."
+  
+  # Check if gh CLI is installed
+  if ! command -v gh &> /dev/null; then
+    echo "❌ GitHub CLI (gh) is not installed. Please install it first:"
+    echo "   brew install gh"
+    exit 1
+  fi
+  
+  TARGET_FILE="packages/xi/assets/js/kitty.umd.js"
+  
+  # Update existing gist
+  echo "� Updatning gist: $GIST_ID"
+  if gh gist edit "$GIST_ID" --add "$TARGET_FILE"; then
+    echo "✅ Successfully updated gist: https://gist.github.com/$GIST_ID"
+  else
+    echo "❌ Failed to update gist"
+    exit 1
+  fi
+  
+  echo "🔗 Gist URL: https://gist.github.com/$GIST_ID"
+  echo "📋 Raw URL: https://gist.githubusercontent.com/$(gh api user --jq .login)/$GIST_ID/raw/kitty.umd.js"
+fi
+
+echo "✅ Sync completed successfully!"

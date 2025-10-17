@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/v1"
+      }
+    },
+    "mirrors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/v1"
+      }
+    }
+  },
+  "definitions": {
+    "v1": {
+      "type": "object",
+      "properties": {
+        "logo": {
+          "type": "string",
+          "description": "图标"
+        },
+        "name": {
+          "type": "string",
+          "description": "名称"
+        },
+        "desc": {
+          "type": "string",
+          "description": "说明"
+        },
+        "api": {
+          "type": "object",
+          "properties": {
+            "root": {
+              "type": "string",
+              "description": "根域名"
+            },
+            "path": {
+              "type": "string",
+              "description": "路径"
+            }
+          }
+        },
+        "nsfw": {
+          "type": "boolean",
+          "description": "是否是 18+ 的源"
+        },
+        "jiexiUrl": {
+          "type": "string",
+          "description": "解析地址"
+        },
+        "id": {
+          "type": "string",
+          "description": "id"
+        }
+      },
+      "required": [ "name", "api", "nsfw" ]
+    }
+  }
+}

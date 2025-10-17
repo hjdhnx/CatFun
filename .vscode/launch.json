@@ -1,0 +1,35 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "movie",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "env": {
+        "CM_DEBUG": "0",
+        "CM_FULL_HTTP_LOG": "0",
+      }
+    },
+    {
+      "name": "movie (profile mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "ck-debug",
+      "cwd": "${workspaceFolder}/script/ckbot",
+      "request": "launch",
+      "type": "go",
+      "mode": "auto",
+      "program": "script/ckbot/main.go",
+      "env": {
+        "GITHUB_TOKEN":"大傻春你在干什么"
+      }
+    },
+  ]
+}

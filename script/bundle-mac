@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+echo "start build 猫趣.app"
+# dart run script/add_builtin.dart > lib/builtin/maccms/maccms.dart
+flutter build macos --release
+echo "cp 猫趣.app to /Applications"
+cp -Rfp build/macos/Build/Products/Release/猫趣.app /Applications

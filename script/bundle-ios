@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+echo "start build 猫趣.ipa"
+# dart run script/add_builtin.dart > lib/builtin/maccms/maccms.dart
+flutter build ios --release --no-codesign
+cd build/ios/iphoneos
+mkdir Payload
+cd Payload
+ln -s ../Runner.app
+cd ..
+zip -r 猫趣.ipa Payload

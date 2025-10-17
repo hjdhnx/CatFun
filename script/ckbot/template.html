@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v1 online</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/vue@3.4.31/dist/vue.global.prod.js"></script>
+  <style>
+    /* http://meyerweb.com/eric/tools/css/reset/ 
+      v2.0 | 20110126
+      License: none (public domain)
+    */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+    }
+    ol, ul {
+      list-style: none;
+    }
+    blockquote, q {
+      quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: '';
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      padding: 42px;
+      box-sizing: border-box;
+    }
+    .start {
+      margin-bottom: 18px;
+    }
+    .card-group {
+      height: 80vh;
+      overflow-y: scroll;
+    }
+    .card {
+      width: 100%;
+      border-radius: 12px;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .author {
+      margin-left: 12px;
+      outline: none;
+      color: #333;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    span {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+    }
+    span.ok {
+      background-color: #009879;
+    }
+    span.err {
+      background-color: #ff0000;
+    }
+
+    /* table */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .styled-table thead tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: left;
+    }
+    .styled-table th,
+    .styled-table td {
+      padding: 12px 15px;
+      text-align: center;
+    }
+    .styled-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:last-of-type {
+      /* border-bottom: 2px solid #009879; */
+      border-bottom: none;
+    }
+    .styled-table tbody tr.active-row {
+      font-weight: bold;
+      color: #009879;
+    }
+    /* table */
+    .status {
+      border: 1px solid #333;
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin: 8px 0;
+    }
+    /* 隐藏滚动条但保留滚动功能 */
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none; /* 隐藏 Chrome、Safari 和 Edge 的滚动条 */
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none; /* 隐藏 IE 和 Edge 的滚动条 */
+      scrollbar-width: none; /* 隐藏 Firefox 的滚动条 */
+    }
+
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <script>
+    const $data = $$$$
+    document.addEventListener("DOMContentLoaded", function () {
+      const $app = Vue.createApp({
+        data() {
+          return {
+            data: $data
+          }
+        }
+      }).mount("#app")
+      window.$cx = $app
+    })
+  </script>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="start">
+      <p>上次更新时间: <strong style="text-decoration: underline; font-size: 18px">{{ data.now }}</strong></p>
+      <p class="status">可用状态: {{ data.correct }}/{{ data.correct + data.err }} </p>
+      <p>JSDelivr CDN(可能有缓存): <a href="https://cdn.jsdelivr.net/gh/waifu-project/v1@latest/yoyo.json">https://cdn.jsdelivr.net/gh/waifu-project/v1@latest/yoyo.json</a> </p>
+    </div>
+    <div class="card-group hide-scrollbar">
+      <div class="card" v-for="(value, key) in data.data">
+        <div class="header">
+          <img class="avatar" :src="value.comment.user.avatar_url" />
+          <a class="author" :href="'https://github.com/' + value.comment.user.login">{{ value.comment.user.login }}</a>
+        </div>
+        <div class="body">
+          <table class="styled-table">
+            <tr>
+              <th width="80px">源名称</th>
+              <th width="42px">状态</th>
+              <th width="42px">类型</th>
+              <th width="42px">耗时</th>
+              <th width="120px">原因</th>
+            </tr>
+            <tr v-for="item in value.data">
+              <td :title="item.parse.url">
+                <img :src="item.logo" v-if="item.logo" width="88px" style="padding-bottom: 12px;" />
+                <p>{{ item.parse.name }}</p>
+              </td>
+              <td><span :class="item.ok ? 'ok' : 'err'"></span></td>
+              <td>{{ item.nsfw ? '18+' : '-' }}</td>
+              <td>{{ item.time }}s</td>
+              <td>{{ item.reason }} </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
